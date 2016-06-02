@@ -7,7 +7,7 @@
 
     <body ng-app="MonApp">
 
-      <div ng-view></div>
+        <div ng-view></div>
 
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
         <script src="https://code.angularjs.org/1.5.5/angular-route.min.js"></script>
@@ -16,23 +16,44 @@
             var app = angular.module('MonApp', ['ngRoute']);
 
             app.config(function($routeProvider) {
-              $routeProvider
+                $routeProvider
                 .when('/', {templateUrl: 'home/home.html'})
-                .when('/projets', {templateUrl: 'home/projets.html'})
-                .otherwise({redirectTo : '/'});
+                .when('/projets', {
+                    templateUrl: 'home/projets.html',
+                    controller: 'ProjetsCtrl'
+                  })
+                .when('/projet/view/:id',{
+                  templateUrl: 'home/view.html',
+                  controller: 'DetailsProjetCrtl'
+                })
+                .otherwise({redirectTo: '/'});
 
+            });
+
+            app.controller('DetailsProjetCrtl', function($scope){
+              $scope.projet = [
+                {
+                    "id": 0,
+                    "detailProjet": "Le detail du projet 0"
+                }, {
+                    "id": 1,
+                    "detailProjet": "Le detail du projet 1"
+                }
+              ];
             });
 
             app.controller('ProjetsCtrl', function($scope) {
                 $scope.projets = [
                     {
+                        "id": 0,
                         "titre": "Forum Symfony",
                         "auteur": "Jhon Doe",
                         "detail": "Le projet en detail ....."
                     }, {
-                      "titre": "App Ionic",
-                      "auteur": "Jhon Doe",
-                      "detail": "Le projet en detail ....."
+                        "id": 1,
+                        "titre": "App Ionic",
+                        "auteur": "Jhon Doe",
+                        "detail": "Le projet en detail ....."
                     }
                 ];
             });

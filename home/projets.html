@@ -1,14 +1,13 @@
-<div ng-controller="ProjetsCtrl">
+<h1>Tous mes Projets :</h1>
 
-    <h1>Tous mes Projets :
-    </h1>
-    <hr>
-    <a href="#/">Page d'accueil</a>
-    <hr>
-    <div ng-repeat="projet in projets">
-        <h3>{{ projet.titre }}</h3>
-        <h4>By :{{ projet.auteur }}</h4>
-        <p>{{ projet.detail }}</p>
-    </div>
+<hr>
+<a href="#/">Page d'accueil</a>
+<hr>
 
+<div ng-repeat="projet in projets">
+    <h3>{{ projet.titre }}</h3>
+    <h4>By :{{ projet.auteur }}</h4>
+    <p>
+<a href="#/projet/view/{{projet.id}}">{{ projet.detail }}</a>
+      </p>
 </div>
