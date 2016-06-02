@@ -7,36 +7,32 @@
 
     <body ng-app="MonApp">
 
-        <div ng-controller="CommentsCtrl">
+      <div ng-view></div>
 
-            <input type="text" ng-model="query"/>
-            {{query}}
-            <select ng-model="order">
-                <option value="username">organiser nom</option>
-                <option value="content">organiser par contenu</content>
-            </select>
-
-            <div ng-repeat="comment in comments | filter:{content: query} | orderBy:order">
-                <h3>{{ comment.username }}</h3>
-                <h3>{{ comment.name }}</h3>
-                <p>{{ comment.content }}</p>
-            </div>
-        </div>
-
-        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+        <script src="https://code.angularjs.org/1.5.5/angular-route.min.js"></script>
 
         <script>
-            var app = angular.module('MonApp', []);
-            app.controller('CommentsCtrl', function($scope) {
-                $scope.comments = [
+            var app = angular.module('MonApp', ['ngRoute']);
+
+            app.config(function($routeProvider) {
+              $routeProvider
+                .when('/', {templateUrl: 'home/home.html'})
+                .when('/projets', {templateUrl: 'home/projets.html'})
+                .otherwise({redirectTo : '/'});
+
+            });
+
+            app.controller('ProjetsCtrl', function($scope) {
+                $scope.projets = [
                     {
-                        "username": "John",
-                        "name": "Doe",
-                        "content": "Text lorem ipsum"
+                        "titre": "Forum Symfony",
+                        "auteur": "Jhon Doe",
+                        "detail": "Le projet en detail ....."
                     }, {
-                        "username": "Paul",
-                        "name": "Smith",
-                        "content": "Text lorem ipsum"
+                      "titre": "App Ionic",
+                      "auteur": "Jhon Doe",
+                      "detail": "Le projet en detail ....."
                     }
                 ];
             });
